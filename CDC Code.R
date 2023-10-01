@@ -97,3 +97,9 @@ fires |>
   summarize(median = median(CONT_TIME,na.rm=T)) |> 
   ggplot(aes(y = STAT_CAUSE_DESCR, x = Region, fill = median)) + geom_tile() + 
   geom_text(aes(label = median), color = "white", size = 4) + theme_classic()
+
+fires |> 
+  group_by(STAT_CAUSE_DESCR, Region) |> 
+  summarize(diff = max(CONT_TIME,na.rm=T) - min(CONT_TIME,na.rm=T)) |> 
+  ggplot(aes(y = STAT_CAUSE_DESCR, x = Region, fill = diff)) + geom_tile() + 
+  geom_text(aes(label = diff), color = "white", size = 4) + theme_classic()
