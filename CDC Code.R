@@ -1,8 +1,18 @@
 library('tidyverse')
 library(lubridate)
+<<<<<<< HEAD
+
+library(scales)
+=======
+>>>>>>> 223ecf7f76aa2ae3342d85388296bfa46d078398
 
 state_region = read.csv("/Users/kevinsu/Downloads/us census bureau regions and divisions.csv")
 
+<<<<<<< HEAD
+state_region = read.csv("/Users/kevinsu/Downloads/us census bureau regions and divisions.csv")
+
+=======
+>>>>>>> 223ecf7f76aa2ae3342d85388296bfa46d078398
 fires = read.csv('fires.csv') |> 
   #mutate(FIRE_YEAR = lubridate::year(lubridate::mdy(FIRE_YEAR))) |> 
   inner_join(state_region, by = c("STATE" = "State.Code"))
@@ -103,3 +113,27 @@ fires |>
   summarize(diff = max(CONT_TIME,na.rm=T) - min(CONT_TIME,na.rm=T)) |> 
   ggplot(aes(y = STAT_CAUSE_DESCR, x = Region, fill = diff)) + geom_tile() + 
   geom_text(aes(label = diff), color = "white", size = 4) + theme_classic()
+<<<<<<< HEAD
+
+
+fires |> 
+  group_by(STAT_CAUSE_DESCR) |> 
+  arrange(desc(FIRE_SIZE)) |> 
+  slice_head(n=1) |> 
+  select(OBJECTID, STAT_CAUSE_DESCR, FIRE_YEAR,FIRE_NAME, FIRE_SIZE) |> 
+  arrange(desc(FIRE_SIZE))
+
+
+# explore missing cause
+fires |> 
+  filter(STAT_CAUSE_DESCR == "Missing/Undefined") |> 
+  ggplot(aes(FIRE_SIZE_CLASS)) + geom_bar() + scale_y_continuous(labels = label_comma())
+
+fires |> 
+  filter(STAT_CAUSE_DESCR != "Missing/Undefined") |> 
+  ggplot(aes(FIRE_SIZE_CLASS)) + geom_bar() + scale_y_continuous(labels = label_comma())
+
+## distributions of fire size class between missing and non-missing causes seems similar
+
+=======
+>>>>>>> 223ecf7f76aa2ae3342d85388296bfa46d078398
